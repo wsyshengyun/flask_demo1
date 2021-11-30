@@ -1,3 +1,4 @@
+from operator import truediv
 from flask_wtf import FlaskForm
 # 以下wtforms不属于flask_wtf包
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
@@ -11,6 +12,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password:', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me') 
     submit = SubmitField('Sign In')
+
 
 class RegistrationForm(FlaskForm):
     username = StringField()
@@ -29,4 +31,6 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+
+
             

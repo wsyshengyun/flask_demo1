@@ -8,7 +8,7 @@
     </head>
     <body>
         <div>Microblog: 
-            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('index') }}">Home(Index)</a>
             {% if current_user.isanonymous %} 
             <a href="{{ url_for('login') }}">Login</a>
             {% else %}
@@ -25,7 +25,7 @@
         </ul>
         {% endif %}
         {% endwith %}
-        <!-- <hr> -->
+        <!-- 以下为通用块 -->
         {% block content %}
             
         {% endblock content %}
