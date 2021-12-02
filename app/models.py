@@ -1,4 +1,5 @@
 from app import db
+# from app import  avatars
 from datetime import datetime
 from werkzeug.security import generate_password_hash,check_password_hash
 from app import login
@@ -25,6 +26,9 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    # def avatar(self, size='m'):
+    #     """ size: default is 'm', other 's'小号, 'l' 大号 """
+    #     return avatars.default(size=size)
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
