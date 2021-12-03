@@ -21,7 +21,7 @@ login.login_view = 'login'
 
 avatars = Avatars(app)
 
-from  app import routes
+from  app import routes,models, errors
 
 
 
