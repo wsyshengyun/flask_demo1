@@ -9,11 +9,14 @@
     </table>
     <hr>
     {% for post in posts %}
+        {% include '_post.html' %}
+    {# 
     <table>
         <tr valign='top'>
             <td><img src="{{ post.author.avatar('s') }}" alt=""></td>
             {{ post.author.username }} says: <b>{{ post.body }}</b>
         </tr>
-    </table>
+    </table> 
+    #}
     {% endfor %}
 {% endblock content %}
