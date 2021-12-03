@@ -3,7 +3,8 @@ from flask_wtf import FlaskForm
 # 以下wtforms不属于flask_wtf包
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms import validators
-from wtforms.validators import DataRequired, EqualTo, ValidationError 
+from wtforms.fields.simple import TextAreaField
+from wtforms.validators import DataRequired, EqualTo, Length, ValidationError 
 from app.models import User
 
 
@@ -34,4 +35,7 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Please use a different email address.')
 
 
-            
+class EditProfileForm(FlaskForm):
+    username = StringField('username', validators=[DataRequired()])
+    about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
+    submit = SubmitField('Submit')
