@@ -11,6 +11,7 @@ from logging.handlers import SMTPHandler
 from logging.handlers import RotatingFileHandler
 import os 
 from flask_bootstrap import Bootstrap
+from flask_moment import Moment, moment 
 
 
 
@@ -28,7 +29,8 @@ avatars = Avatars(app)
 
 # 用bootstrap美化
 bootstrap = Bootstrap(app)
-
+moment = Moment()
+moment.init_app(app)
 # -----------------------------------------------------------
 # 添加邮件功能
 # -----------------------------------------------------------
