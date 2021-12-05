@@ -1,7 +1,7 @@
 from flask import render_template ,flash, redirect, url_for,request
 from app import app , db
-from app.forms import LoginForm, RegistrationForm
-from app.models import User
+from app.forms import LoginForm, RegistrationForm, PostForm
+from app.models import User, Post
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime 
@@ -21,25 +21,29 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
     # user = {'username' : 'Migue'}
-    posts = [ 
-            {
-                'author':{'username':'John'}, 
-                'body':'Beautiful day in Portland!'
-            },
-            {
-                'author':{'username':'Susan'}, 
-                'body':'The Avengers movie was so cool!'
-            }
-    ]
+    form = PostForm()
+    if form.validate_on_submit():
+        # app.logger.info("nihao")
+        # print("nihao")
+        post = Post(body=form.post.data, author=current_user)
+        # print(post)
+        app.logger.info(post)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post is now live!')
+        return redirect(url_for('index'))
+
+    posts = current_user.followed_posts().all()
     title = "Home"
     return render_template('index.html'
     , title=title
     , posts = posts
+    , form=form
     )
 
 
@@ -141,4 +145,10 @@ def unfollow(username):
     current_user.unfollow(user)
     db.session.commit()
     flash('You are not following {}.'.format(username))
-    
+
+# 添加一个“发现”视图
+@app.route('/explore')
+@login_required
+def explore():
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('index.html', title='Explore', posts=posts)

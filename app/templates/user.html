@@ -26,13 +26,5 @@
     <hr>
     {% for post in posts %}
         {% include '_post.html' %}
-    {#注释掉下面这段------------ 
-    <table>
-        <tr valign='top'>
-            <td><img src="{{ post.author.avatar('s') }}" alt=""></td>
-            {{ post.author.username }} says: <b>{{ post.body }}</b>
-        </tr>
-    </table> 
-    #}
     {% endfor %}
 {% endblock content %}

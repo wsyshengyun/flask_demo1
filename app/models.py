@@ -88,7 +88,7 @@ class Post(db.Model):
         # TODO String(140)?? 140长度指的是什么
 
     def __repr__(self):
-        return '<Post {}>'.format(self.body)
+        return '<Post {}, {}>'.format(self.body, self.user_id)
 
 
 
