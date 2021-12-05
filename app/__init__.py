@@ -1,13 +1,11 @@
-from os import truncate
+# from os import truncate
 from  flask import Flask 
 from config import Config
 from flask_sqlalchemy import SQLAlchemy 
 from flask_migrate import Migrate
 # from models import *
 from flask_login import LoginManager
-
 from flask_avatars import Avatars
-
 import logging
 from logging.handlers import SMTPHandler
 from logging.handlers import RotatingFileHandler
