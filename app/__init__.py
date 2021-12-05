@@ -10,6 +10,7 @@ import logging
 from logging.handlers import SMTPHandler
 from logging.handlers import RotatingFileHandler
 import os 
+from flask_bootstrap import Bootstrap
 
 
 
@@ -24,6 +25,9 @@ login = LoginManager(app)
 login.login_view = 'login'
 
 avatars = Avatars(app)
+
+# 用bootstrap美化
+bootstrap = Bootstrap(app)
 
 # -----------------------------------------------------------
 # 添加邮件功能
