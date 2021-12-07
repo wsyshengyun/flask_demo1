@@ -5,6 +5,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms import validators
 from wtforms.fields.simple import TextAreaField
 from wtforms.validators import DataRequired, EqualTo, Length, ValidationError 
+from wtforms.validators import Email
 from app.models import User
 
 
@@ -57,3 +58,14 @@ class PostForm(FlaskForm):
     ])
     submit = SubmitField('Submit')
 
+# 重置密码时输出电子邮件地址的表单
+class ResetPasswordRequestForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField(
+            'Repeat Password', validators=[DataRequired(), EqualTo('password')]
+    )
+    submit = SubmitField('Request Password Reset')

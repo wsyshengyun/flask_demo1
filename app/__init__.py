@@ -12,6 +12,7 @@ from logging.handlers import RotatingFileHandler
 import os 
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment, moment 
+from flask_mail import Mail
 
 
 
@@ -31,21 +32,26 @@ avatars = Avatars(app)
 bootstrap = Bootstrap(app)
 moment = Moment()
 moment.init_app(app)
+
+# 邮件功能
+mail = Mail(app)
+
 # -----------------------------------------------------------
 # 添加邮件功能
 # -----------------------------------------------------------
 if not app.debug:
     if app.config['MAIL_SERVER']:
         auth = None
-        if app.config['mail_username'] or app.config['mail_password']:
-            auth = (app.config['mail_username'], app.config['mail_password'])
+        if app.config['MAIL_USERNAME'] or app.config['MAIL_PASSWORD']:
+            auth = (app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD'])
         secure=None
-        if app.config['mail_use_tls']:
+        if app.config['MAIL_USE_SSL']:
+        # if app.config['MAIL_USE_TLS']:
             secure=()
         mail_handler = SMTPHandler(
-            mailhost=(app.config['mail_server'], app.config['mail_port'])
-            ,fromaddr='no-reply@' + app.config['mail_server']
-            ,toaddrs=app.config['admins'] 
+            mailhost=(app.config['MAIL_SERVER'], app.config['MAIL_PORT'])
+            ,fromaddr='no-reply@' + app.config['MAIL_SERVER']
+            ,toaddrs=app.config['ADMINS'] 
             ,subject='Microblog Failure'
             ,credentials=auth
             ,secure=secure
