@@ -55,10 +55,14 @@ class User(db.Model, UserMixin):
 
     def get_reset_password_token(self, expires_in=600):
         _dict = {'reset_password':self.id, 'exp':time() + expires_in}
-        return jwt.encode( _dict
+        jwd_str =  jwt.encode( _dict
             ,app.config['SECRET_KEY']
             ,algorithm='HS256'
-        ).decode('utf-8')
+        )
+        # .decode('utf-8')
+        app.logger.info(jwd_str)
+        return jwd_str
+        # .decode('utf-8')
     
     @staticmethod
     def verify_reset_password_token(token):

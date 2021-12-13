@@ -189,7 +189,7 @@ from app.email import send_password_reset_email
 def reset_password_request():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-    form = ResetPasswordRequestForm()
+    form = ResetPasswordRequestForm() # 请求输入更改密码的邮箱是多少
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user:

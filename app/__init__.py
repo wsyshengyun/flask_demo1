@@ -18,14 +18,17 @@ from flask_mail import Mail
 
 app = Flask(__name__)
 app.config.from_object(Config) # 此app就是Flask；
-app.debug=False
+app.debug = app.config['DEBUG']
 
+# 数据库对象
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
+# 登陆对象
 login = LoginManager(app)
 login.login_view = 'login'
 
+# 头像插件对象
 avatars = Avatars(app)
 
 # 用bootstrap美化
@@ -33,7 +36,7 @@ bootstrap = Bootstrap(app)
 moment = Moment()
 moment.init_app(app)
 
-# 邮件功能
+# 邮件对象
 mail = Mail(app)
 
 # -----------------------------------------------------------
@@ -68,6 +71,7 @@ if not app.debug:
     app.logger.addHandler(file_handler)
     app.logger.setLevel(logging.INFO)
     app.logger.info('Microblog startup')
+# app.logger.info(app.config)
     
 from  app import routes,models, errors
 
