@@ -106,6 +106,7 @@ def register():
 def user(username):
     """ 个人主页 """
     user = User.query.filter_by(username=username).first_or_404()
+    # app.logger.info(user.avatar('s'))
     page = request.args.get('page', 1, type=int)
     posts = user.posts.order_by(Post.timestamp.desc()).paginate(
         page, app.config['POSTS_PER_PAGE'], False
